@@ -12,8 +12,8 @@ Loki does not include support for authentication, and enabling TLS is an undocum
 
 1. Generate server key and certificate for your machine.
 2. Run the following in a terminal: `docker run -it caddy sh`
-3. A command prompt (shell in Docker) will appear. Enter `caddy hash-password` and provide a password, then copy the resulting hashed password, and exit the Docker shell.
-4. Create a file `.env` which will contain environment variables that Docker will use...in this example, the password is "admin":
+3. A command prompt (shell in Docker) will appear. Enter `caddy hash-password` and provide a password for Loki, then copy the resulting hashed password, and exit the Docker shell. You will use this hashed password to populate the environment variable `LOKI_PASSWORD`
+4. Create a file `.env` which will contain environment variables that Docker will use...in this example, the hashed password is for the value "admin":
 ```
 SERVER=mycomputername
 SERVER_KEY=mycomputername.key.pem
