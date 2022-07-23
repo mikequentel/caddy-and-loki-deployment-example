@@ -1,0 +1,15 @@
+{$SERVER} {
+	tls /{$SERVER_CERT} /{$SERVER_KEY}
+	
+	
+	handle /loki* {
+
+      reverse_proxy loki:3100
+
+      basicauth /loki/* {
+		{$LOKI_USER} {$LOKI_PASSWORD}
+	  }
+
+    }
+
+}

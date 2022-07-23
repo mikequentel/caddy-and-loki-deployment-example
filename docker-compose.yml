@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+
+  loki:
+    user: "1001:1001"
+    image: grafana/loki:latest
+    container_name: loki
+    restart: unless-stopped
+    volumes:
+      - "./etc/loki/local-config.yaml:/etc/loki/local-config.yaml:ro"
+
+  caddy:
+    image: caddy:latest
+    container_name: caddy
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - $PWD/Caddyfile:/etc/caddy/Caddyfile
+      - $PWD/${SERVER_KEY}:/${SERVER_KEY}:ro
+      - $PWD/${SERVER_CERT}:/${SERVER_CERT}:ro
+    environment:
+      SERVER: ${SERVER}
+      SERVER_KEY: ${SERVER_KEY}
+      SERVER_CERT: ${SERVER_CERT}
+      LOKI_USER: ${LOKI_USER}
+      LOKI_PASSWORD: ${LOKI_PASSWORD}
